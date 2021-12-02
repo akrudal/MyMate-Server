@@ -2,13 +2,14 @@ package mobile.programming.mymate.message;
 
 
 import lombok.Getter;
+import mobile.programming.mymate.BaseTimeEntity;
 import mobile.programming.mymate.member.Member;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-public class Message {
+public class Message extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +23,11 @@ public class Message {
 
     private String context;
 
+    public Message(Member sender, Member receiver, String context) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.context = context;
+    }
+
+    protected Message() {}
 }
