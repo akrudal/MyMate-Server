@@ -7,7 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Transactional
@@ -45,9 +49,12 @@ public class MemberService {
             throw new IllegalStateException("회원 정보가 없습니다.");
         }
 
+        Member member = memberOptional.get();
 
-        memberOptional.get().setMateType(request.getMateType());
-        return new CreateTypeResponse(memberOptional.get().getMateType());
+        member.setMateType1(request.getMateType1());
+        member.setMateType2(request.getMateType2());
+
+        return new CreateTypeResponse(member.getMateType1(), member.getMateType2());
     }
 
     public void createDetail(CreateDetailRequest request){
@@ -66,7 +73,7 @@ public class MemberService {
         }
 
         Member my=memberOptional.get();
-        return new CreateMyResponse(my.getNickname(),my.getMateType(),my.getRate());
+        return new CreateMyResponse(my.getNickname(),my.getMateType1(),my.getMateType2(),my.getRate());
     }
 
     public CreateDetailResponse getDetail(Long id){
@@ -77,6 +84,29 @@ public class MemberService {
 
         Member detail=memberOptional.get();
         return new CreateDetailResponse(detail.getNoise(),detail.getSmoke(),detail.getWakeUp(),detail.getSleep(),detail.getShower());
+    }
+
+    public RecommendMemberResponse recommendList(String mateType1) {
+        List<Member> members = memberRepository.findMembersByMateType1(mateType1);
+        List<MemberDto> collect = members.stream()
+                .map(MemberDto::from)
+                .collect(toList());
+        return new RecommendMemberResponse(collect.size(), collect);
+    }
+
+    public SimilarMemberResponse similarList(String mateType1, String mateType2) {
+        List<Member> members = memberRepository.findMembersByMateType1AndMateType2(mateType1, mateType2);
+        List<MemberDto> collect = members.stream()
+                .map(MemberDto::from)
+                .collect(toList());
+
+        return new SimilarMemberResponse(collect.size(), collect);
+    }
+
+    public OtherMemberResponse otherMember(Long memberId) {
+        Optional<Member> memberOptional = memberRepository.findById(memberId);
+        Member member = memberOptional.orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
+        return OtherMemberResponse.from(member);
     }
 
 }

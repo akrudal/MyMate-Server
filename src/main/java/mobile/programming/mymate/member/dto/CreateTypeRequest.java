@@ -6,5 +6,7 @@ import lombok.Getter;
 public class CreateTypeRequest {
     private Long id;
 
-    private String mateType;
+    private String mateType1;
+
+    private String mateType2;
 }

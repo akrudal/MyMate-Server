@@ -3,12 +3,12 @@ package mobile.programming.mymate.member;
 
 import lombok.Getter;
 import lombok.Setter;
+import mobile.programming.mymate.mate.Mate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,7 +25,9 @@ public class Member {
 
     private String password;
 
-    private String mateType;
+    private String mateType1;
+
+    private String mateType2;
 
     private Boolean noise;
 
@@ -38,6 +40,9 @@ public class Member {
     private String shower;
 
     private double rate=0.0;
+
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Mate> mates = new HashSet<>();
 
     public Member(String nickname, String userId, String password) {
         this.nickname = nickname;

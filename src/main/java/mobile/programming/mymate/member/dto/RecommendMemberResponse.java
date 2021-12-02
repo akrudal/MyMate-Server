@@ -1,12 +1,17 @@
 package mobile.programming.mymate.member.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
-public class CreateTypeResponse {
-    private String mateType1;
+public class RecommendMemberResponse {
 
-    private String mateType2;
+    private int count;
+
+    private List<MemberDto> data;
+
 }

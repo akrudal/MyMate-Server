@@ -5,6 +5,7 @@ import mobile.programming.mymate.member.Member;
 import mobile.programming.mymate.member.MemberRepository;
 import mobile.programming.mymate.message.dto.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MessageService {
 
     private final MemberRepository memberRepository;

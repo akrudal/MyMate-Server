@@ -8,7 +8,9 @@ import lombok.Getter;
 public class CreateMyResponse {
     private String nickname;
 
-    private String mateType;
+    private String mateType1;
+
+    private String mateType2;
 
     private double rate;
 }
