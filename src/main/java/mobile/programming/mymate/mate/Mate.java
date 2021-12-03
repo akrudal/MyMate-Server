@@ -16,10 +16,12 @@ public class Mate {
     @EmbeddedId
     private Key key = new Key();
 
+    //신청한 사람
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     private Member user;
 
+    //신청 받은 사람
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("memberId")
     private Member member;

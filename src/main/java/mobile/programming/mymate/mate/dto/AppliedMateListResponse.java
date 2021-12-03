@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class MateListResponse {
+public class AppliedMateListResponse {
 
     private int count;
 

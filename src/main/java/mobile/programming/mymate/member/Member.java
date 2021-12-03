@@ -7,7 +7,9 @@ import mobile.programming.mymate.mate.Mate;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -42,7 +44,7 @@ public class Member {
     private double rate=0.0;
 
     @OneToMany( mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Mate> mates = new HashSet<>();
+    private List<Mate> mates = new ArrayList<>();
 
     public Member(String nickname, String userId, String password) {
         this.nickname = nickname;
